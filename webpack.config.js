@@ -22,6 +22,8 @@ Encore
      */
     .addEntry('app', './assets/app.js')
 
+    .addStyleEntry('css/app', './assets/styles/app.css')
+
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 
@@ -30,6 +32,7 @@ Encore
     .enableSingleRuntimeChunk()
 
     .enablePostCssLoader()
+    
 
     /*
      * FEATURE CONFIG

@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\ArtworkRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArtworkRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Artwork
 {
     #[ORM\Id]
@@ -31,6 +33,20 @@ class Artwork
     #[ORM\ManyToOne(inversedBy: 'artworks')]
     private ?SubCategory $SubCategory = null;
 
+    public function __construct()
+    {
+        $this->created_at = new \DateTimeImmutable();
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        if ($this->created_at === null) {
+            $this->created_at = new \DateTimeImmutable();
+        }
+    }
+
+    // Getters and setters
     public function getId(): ?int
     {
         return $this->id;

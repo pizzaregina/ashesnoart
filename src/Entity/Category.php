@@ -112,4 +112,9 @@ class Category
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->name; // Assurez-vous de retourner une propriété qui représente bien la catégorie
+    }
 }

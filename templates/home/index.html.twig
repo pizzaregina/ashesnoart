@@ -1,15 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}@ashes.No.art{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="min-h-screen flex flex-col bg-custom text-black font-siamese relative">
+    <!-- Contenu principal avec flex-grow pour occuper l'espace restant -->
+    <div class="flex-grow flex flex-col ml-16 relative">
+        <!-- Header -->
+        <header class="relative text-left mt-12">
+            <div class="relative">
+                <h1 class="text-6xl md:text-8xl font-bold bg-white bg-opacity-30 px-4 py-2 mt-4 relative z-10">
+                    <span class="font-snowstorm">@</span><span>ashes.No.art</span>
+                </h1>
+                <hr class="absolute top-0 left-0 w-0 h-full border-l-4 border-black">
+            </div>
+        </header>
 
-<div class="example-wrapper">
-       <h1 class="text-3xl font-bold underline bg-red-600">
-    Hello world!
-  </h1>
+        <!-- Main Content -->
+        <main class="flex flex-grow">
+            <!-- Navigation -->
+            <nav class="md:w-1/4 p-4 border-r-4 border-black flex flex-col justify-between">
+                <div>
+                    <div class="text-left text-3xl font-semibold mb-4">
+                        <h2 class="mb-2 font-snowstorm">works</h2>
+                        <ul class="space-y-2">
+                            {% for category in categories %}
+                                <li class="text-xl">
+                                    <a href="#" class="category-link font-snowstorm" data-category-id="{{ category.id }}">{{ category.name }}</a>
+                                    <ul class="sub-category-list hidden space-y-2" data-category-id="{{ category.id }}"></ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div id="sub-category-container" class="text-left text-3xl font-semibold mt-8">
+                        <h2 class="font-snowstorm">contact</h2>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Grid Section -->
+            <section id="artwork-container" class="md:w-3/4 mt-8 md:mt-0 grid grid-cols-2 md:grid-cols-3 gap-4">
+                <!-- Artwork items will be loaded here dynamically -->
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-black to-transparent text-white text-center py-8 w-full mt-auto">
+        <div class="flex justify-center items-center space-x-4 font-snowstorm">
+            <a href="https://www.instagram.com/ashes.NO.art" target="_blank" class="text-xl">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <span class="font-siamese text-2xl">
+                <span class="font-snowstorm">@</span>ashes.No.art
+            </span>
+            <a href="https://www.tiktok.com/@ashes.NO.art" target="_blank" class="text-xl">
+                <i class="fab fa-tiktok"></i>
+            </a>
+        </div>
+    </footer>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/artwork.js') }}"></script>
 {% endblock %}

@@ -1,0 +1,8 @@
+liip_imagine:
+    driver: "gd" # ou "imagick"
+    filter_sets:
+        cache: ~
+        webp:
+            format: webp
+            quality: 85
+    

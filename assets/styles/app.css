@@ -1,3 +1,40 @@
+@font-face {
+    font-family: 'siamese';
+    src: url('./fonts/siamese.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Snowstorm';
+    src: url('./fonts/Snowstorm.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font-siamese {
+    font-family: 'Siamese', sans-serif;
+  }
+  
+  .font-snowstorm {
+    font-family: 'Snowstorm', serif;
+  }
+
+
+  .bg-gradient-to-r {
+    background: linear-gradient(to right, black, rgba(0, 0, 0, 0));
+  }
+  
+ 
+hr.absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh; /* Étendre jusqu'en bas de la page */
+  z-index: 0;
+}

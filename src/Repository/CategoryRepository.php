@@ -16,6 +16,17 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
+    public function findAllWithSubCategoriesAndArtworks()
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.subCategories', 'sc')
+            ->addSelect('sc')
+            ->leftJoin('sc.artworks', 'a')
+            ->addSelect('a')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Category[] Returns an array of Category objects
 //     */

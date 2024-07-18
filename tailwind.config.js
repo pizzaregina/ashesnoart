@@ -1,10 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./assets/**/*.js",
-    "./templates/**/*.html.twig",
+  purge: [
+    './templates/**/*.html.twig',
+    './src/**/*.js',
   ],
+  darkMode: false, // or 'media' or 'class'
   theme: {
+    extend: {
+      fontFamily: {
+        siamese: ['siamese', 'sans-serif'],
+        snowstorm: ['Snowstorm', 'serif'],
+      },
+    },
+  },
+  variants: {
     extend: {},
   },
   plugins: [],
