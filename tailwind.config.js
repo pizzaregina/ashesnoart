@@ -1,20 +1,14 @@
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js
 module.exports = {
-  purge: [
-    './templates/**/*.html.twig',
-    './src/**/*.js',
+  content: [
+    "./assets/**/*.js",
+    "./templates/**/*.html.twig",
+    "./node_modules/flowbite/**/*.js" // set up the path to the flowbite package
   ],
-  darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {
-      fontFamily: {
-        siamese: ['siamese', 'sans-serif'],
-        snowstorm: ['Snowstorm', 'serif'],
-      },
-    },
-  },
-  variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin') // add the flowbite plugin
+  ],
 }

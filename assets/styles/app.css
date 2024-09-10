@@ -31,10 +31,3 @@
   }
   
  
-hr.absolute {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh; /* Étendre jusqu'en bas de la page */
-  z-index: 0;
-}
