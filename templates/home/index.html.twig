@@ -16,38 +16,39 @@
     
 
     <!-- Sidebar -->
-   <aside id="sidebar-multi-level-sidebar" class="fixed left-0 z-40 w-64 h-screen border-r-4 border-black transform -translate-x-full sm:translate-x-0 transition-transform duration-300 sm:mt-0 bg-white sm:bg-transparent dark:bg-gray-800">
+   <aside id="sidebar-multi-level-sidebar" class="fixed bg-white left-0 z-40 w-64 h-screen border-r-4 border-black transform -translate-x-full sm:translate-x-0 transition-transform duration-300 sm:mt-0   sm:bg-transparent dark:bg-gray-800">
     <div class="h-full px-3 py-4 overflow-y-auto">
         <ul class="space-y-2 font-medium mt-36">
                 <!-- "Works" avec une taille de texte plus grande -->
                 <li>
-                    <a href="#" id="all-works-button" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <span class="ms-3 text-5xl font-bold font-snowstorm">Works</span>
-                    </a>
+                    <h3 id="all-works-button" class="flex items-center p-2 text-gray-900 rounded-lg ">
+                        <span class="ms-3 text-5xl font-bold font-snowstorm"> My works</span>
+                    <h3>
                 </li>
 
                 <!-- Menu à plusieurs niveaux pour chaque catégorie -->
-                {% for category in categories %}
+               {% for category in categories %}
+    <li>
+        <button type="button" data-category-id="{{ category.id }}" class="category-button flex items-center w-full p-2 text-base font-snowstorm text-gray-900 rounded-lg hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-{{ category.id }}" data-collapse-toggle="dropdown-{{ category.id }}">
+            <span class="flex-1 ms-3 text-left text-2xl">{{ category.name }}</span>
+            {% if category.name != 'All' %}
+                <svg class="chevron-icon w-3 h-3 flex-shrink-0 ms-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 10 6" aria-hidden="true">
+                    <path d="M1 1l4 4 4-4"></path>
+                </svg>
+            {% endif %}
+        </button>
+        {% if category.name != 'All' %}
+            <ul id="dropdown-{{ category.id }}" class="hidden py-2 space-y-2">
+                {% for subcategory in category.subcategories %}
                     <li>
-                        <button type="button" data-category-id="{{ category.id }}" class="category-button flex items-center w-full p-2 text-base font-snowstorm text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-{{ category.id }}" data-collapse-toggle="dropdown-{{ category.id }}">
-                            <span class="flex-1 ms-3 text-left text-3xl">{{ category.name }}</span>
-                            {% if category.name != 'All' %}
-                                <svg class="w-3 h-3 flex-shrink-0 ms-2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 10 6" aria-hidden="true">
-                                    <path d="M1 1l4 4 4-4"></path>
-                                </svg>
-                            {% endif %}
-                        </button>
-                        {% if category.name != 'All' %}
-                            <ul id="dropdown-{{ category.id }}" class="hidden py-2 space-y-2">
-                                {% for subcategory in category.subcategories %}
-                                    <li>
-                                        <a href="#" data-sub-category-id="{{ subcategory.id }}" class="subcategory-button flex items-center w-full p-2 pl-11 text-2xl font-snowstorm text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{ subcategory.name }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
+                        <a href="#" data-sub-category-id="{{ subcategory.id }}" class="subcategory-button flex items-center w-full p-2 pl-11 text-2xl font-snowstorm text-gray-900 rounded-lg hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{ subcategory.name }}</a>
                     </li>
                 {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+{% endfor %}
+
             </ul>
         </div>
     </aside>
@@ -64,19 +65,25 @@
         <hr class="absolute top-0 left-0 w-0 border-l-4 border-black hidden sm:block"> <!-- Cache la ligne sur petits écrans -->
     </div>
 </header>
-            <div id="spinner" class="flex justify-center items-center h-64 col-span-full">
+
+ <!-- Ajouter le titre de la catégorie ici -->
+        <h2 id="category-title" class="category-title text-center text-2xl sm:text-5xl font-bold font-snowstorm !mt-8 mb-4"></h2>
+            <div id="spinner" class="hidden flex justify-center items-center h-64 col-span-full">
                 <div role="status" class="animate-spin inline-block w-12 h-12 border-4 border-t-transparent border-red-500 rounded-full"></div>
                 <span class="sr-only">Loading...</span>
             </div>
 
+            <div id="portfolio-description" class="p-6">
+        <p class="text-lg font-siamese">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac vestibulum erat. Mauris at lorem eu elit gravida tempor vitae vitae lectus. Integer feugiat, metus eu tincidunt convallis, urna est commodo nisl, vitae ullamcorper arcu mauris at sapien. Fusce sollicitudin, urna quis vehicula semper, nibh ipsum vestibulum eros, sed dictum justo ex non metus. Suspendisse potenti.
+        </p>
+    </div>
+
             <!-- Grid Section -->
             <section id="artwork-container" class="p-4 md:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
                 <!-- Images with Tailwind utility classes -->
-                 {% for artwork in artworks %}
-        <div class="artwork-item" data-title="{{ artwork.title }}" data-description="{{ artwork.description }}">
-            <img src="{{ artwork.imagePath }}" alt="{{ artwork.title }}" class="w-full h-auto object-cover cursor-pointer">
-        </div>
-    {% endfor %}
+                 
                 <div class="artwork-item">
                     
                 </div>
@@ -113,10 +120,11 @@
                 </button>
             </div>
             <div class="p-6 space-y-6">
-                <img id="modalImage" src="" alt="Image en grand" class="w-full h-auto object-contain">
-                <h2 id="modalTitle" class="text-xl font-bold text-center dark:text-white"></h2>
-                <p id="modalDescription" class="text-base text-center dark:text-gray-300"></p>
-            </div>
+    <h2 id="modalTitle" class="text-xl font-bold text-center dark:text-white"></h2>
+    <p id="modalDescription" class="text-base text-center dark:text-gray-300"></p>
+    <img id="modalImage" src="" alt="Image en grand" class="w-full h-auto object-contain">
+</div>
+
         </div>
     </div>
 </div>
@@ -127,6 +135,8 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
+
+    
     
    document.addEventListener('DOMContentLoaded', function () {
     const hamburgerButton = document.getElementById('hamburger');
@@ -147,7 +157,314 @@
         }
     });
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const categoryButtons = document.querySelectorAll('.category-button');
+    const subCategoryButtons = document.querySelectorAll('.subcategory-button');
+    const artworkContainer = document.getElementById('artwork-container');
+    const imageModal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const closeModalButtons = document.querySelectorAll('.close-modal');
+    const spinnerContainer = document.getElementById('spinner');
+    const hamburgerButton = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar-multi-level-sidebar');
+    const categoryTitleElement = document.getElementById('category-title');
+    const portfolioDescription = document.getElementById('portfolio-description');
+    
+  // Fonction pour cacher la description du portfolio avec une transition
+function hidePortfolioDescription() {
+    if (portfolioDescription) {
+        // Ajouter la classe 'hidden' pour déclencher la transition CSS
+        portfolioDescription.classList.add('hidden');
+        
+        // Après la transition, retirer complètement l'élément du flux
+        setTimeout(() => {
+            portfolioDescription.style.display = 'none';
+        }, 500); // Durée correspondant à la transition CSS
+    }
+}
+ 
+
+    // Fonction pour afficher la modal avec l'image en grand
+    function openModal(imageSrc, title, description) {
+        modalImage.src = imageSrc;
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalDescription').textContent = description;
+    
+        imageModal.classList.remove('hidden');
+        setTimeout(() => {
+            imageModal.style.opacity = '1';
+            imageModal.style.transform = 'scale(1)';
+        }, 100);
+    }
+    
+
+    // Fonction pour fermer la modal
+    function closeModal() {
+        imageModal.style.opacity = '0';
+        imageModal.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            imageModal.classList.add('hidden');
+        }, 300);
+    }
+
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', closeModal);
+    });
+
+    // Fonction pour attacher un événement 'click' à chaque image
+    function attachImageClickEvent(imgElement) {
+        imgElement.addEventListener('click', function () {
+            const title = this.dataset.title;
+            const description = this.dataset.description;
+            openModal(this.src, title, description);
+        });
+    }
+
+    // Gestionnaire de clic pour les catégories (inclut la catégorie "All")
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            const categoryId = this.getAttribute('data-category-id');
+            const categoryName = this.textContent.trim();
+    
+            // Sélectionner le chevron dans le bouton cliqué
+            const chevronIcon = this.querySelector('.chevron-icon');
+    
+            // Vérifier si la catégorie a des sous-catégories
+            const dropdownId = this.getAttribute('aria-controls');
+            const dropdownElement = document.getElementById(dropdownId);
+    
+            if (dropdownElement) {
+                // La catégorie a des sous-catégories
+    
+                // Bascule la classe 'rotate-180' sur le chevron
+                if (chevronIcon) {
+                    chevronIcon.classList.toggle('rotate-180');
+                }
+    
+                // Bascule l'affichage des sous-catégories
+                dropdownElement.classList.toggle('hidden');
+            } else {
+                   hidePortfolioDescription();
+                // La catégorie n'a pas de sous-catégories (ou c'est "All")
+                // Effacer le contenu existant
+                categoryTitleElement.textContent = categoryName;
+                artworkContainer.innerHTML = ''; 
+                
+                // Afficher le spinner
+                spinnerContainer.style.display = 'flex';
+                spinnerContainer.style.zIndex = '1000';
+    
+                // Masquer le conteneur tant que les images ne sont pas chargées
+                artworkContainer.style.opacity = '0';
+                artworkContainer.style.transition = 'opacity 1s ease';
+
+            // Requête pour récupérer les œuvres d'art d'une catégorie (ou "All")
+            fetch(`/category/${categoryId}/artworks`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.length === 0) {
+                        spinnerContainer.style.display = 'none';
+                        artworkContainer.innerHTML = '<p class="text-center text-2xl text-gray-500">Aucun artwork disponible.</p>';
+                    } else {
+                        let imagesLoaded = 0;
+                        const totalImages = data.length;
+
+                        data.forEach((artwork, index) => {
+                            const artworkElement = document.createElement('div');
+                            artworkElement.classList.add('artwork-item', 'relative', 'bg-gray-100', 'rounded', 'shadow-lg', 'overflow-hidden');
+                            artworkElement.style.opacity = '0';
+                            artworkElement.style.transform = 'translateY(20px)';
+                            artworkElement.style.transition = 'opacity 1s ease, transform 1s ease';
+
+                            artworkElement.innerHTML = `
+                                <img src="/uploads/images/${artwork.imagePath}" alt="${artwork.title}" class="w-full h-full object-cover cursor-pointer hidden">
+                                <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black to-transparent text-white"></div>
+                            `;
+
+                            const imgElement = artworkElement.querySelector('img');
+                            imgElement.dataset.title = artwork.title;
+                            imgElement.dataset.description = artwork.description;
+                            artworkContainer.appendChild(artworkElement);
+
+                            if (imgElement.complete) {
+                                imagesLoaded += 1;
+                                imgElement.classList.remove('hidden');
+                                setTimeout(() => {
+                                    artworkElement.style.opacity = '1';
+                                    artworkElement.style.transform = 'translateY(0)';
+                                }, index * 200);
+
+                                attachImageClickEvent(imgElement);
+
+                                if (imagesLoaded === totalImages) {
+                                    spinnerContainer.style.display = 'none';
+                                    artworkContainer.style.opacity = '1';
+                                }
+                            } else {
+                                imgElement.onload = function () {
+                                    imagesLoaded += 1;
+                                    imgElement.classList.remove('hidden');
+                                    setTimeout(() => {
+                                        artworkElement.style.opacity = '1';
+                                        artworkElement.style.transform = 'translateY(0)';
+                                    }, index * 200);
+
+                                    attachImageClickEvent(imgElement);
+
+                                    if (imagesLoaded === totalImages) {
+                                        spinnerContainer.style.display = 'none';
+                                        artworkContainer.style.opacity = '1';
+                                    }
+                                };
+
+                                imgElement.onerror = function () {
+                                    imagesLoaded += 1;
+                                    if (imagesLoaded === totalImages) {
+                                        spinnerContainer.style.display = 'none';
+                                        artworkContainer.style.opacity = '1';
+                                    }
+                                };
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération des artworks:', error);
+                    spinnerContainer.style.display = 'none';
+                    artworkContainer.innerHTML = '<p class="text-center text-2xl text-red-500">Erreur lors de la récupération des artworks.</p>';
+                });
+            }
+        });
+    });
+
+    // Gestionnaire de clic pour les sous-catégories
+    subCategoryButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            const subCategoryId = this.getAttribute('data-sub-category-id');
+            const subCategoryName = this.textContent.trim();
+            
+
+              hidePortfolioDescription();
+             // Mettre à jour le titre de la catégorie
+            categoryTitleElement.textContent = subCategoryName;
+            // Effacer le contenu existant
+            artworkContainer.innerHTML = ''; 
+            
+            // Afficher le spinner
+            spinnerContainer.style.display = 'flex';
+            spinnerContainer.style.zIndex = '1000';
+
+            // Masquer le conteneur tant que les images ne sont pas chargées
+            artworkContainer.style.opacity = '0';
+            artworkContainer.style.transition = 'opacity 1s ease';
+
+            // Requête pour récupérer les œuvres d'art d'une sous-catégorie spécifique
+            fetch(`/subcategory/${subCategoryId}/artworks`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.length === 0) {
+                        spinnerContainer.style.display = 'none';
+                        artworkContainer.innerHTML = '<p class="text-center text-2xl text-gray-500">Aucun artwork disponible pour cette sous-catégorie.</p>';
+                    } else {
+                        let imagesLoaded = 0;
+                        const totalImages = data.length;
+
+                        data.forEach((artwork, index) => {
+                            const artworkElement = document.createElement('div');
+                            artworkElement.classList.add('artwork-item', 'relative', 'bg-gray-100', 'rounded', 'shadow-lg', 'overflow-hidden');
+                            artworkElement.style.opacity = '0';
+                            artworkElement.style.transform = 'translateY(20px)';
+                            artworkElement.style.transition = 'opacity 1s ease, transform 1s ease';
+
+                            artworkElement.innerHTML = `
+                                <img src="/uploads/images/${artwork.imagePath}" alt="${artwork.title}" class="w-full h-full object-cover cursor-pointer hidden">
+                                <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black to-transparent text-white"></div>
+                            `;
+
+                            const imgElement = artworkElement.querySelector('img');
+                            imgElement.dataset.title = artwork.title;
+                            imgElement.dataset.description = artwork.description;
+                            artworkContainer.appendChild(artworkElement);
+
+                            if (imgElement.complete) {
+                                imagesLoaded += 1;
+                                imgElement.classList.remove('hidden');
+                                setTimeout(() => {
+                                    artworkElement.style.opacity = '1';
+                                    artworkElement.style.transform = 'translateY(0)';
+                                }, index * 200);
+
+                                attachImageClickEvent(imgElement);
+
+                                if (imagesLoaded === totalImages) {
+                                    spinnerContainer.style.display = 'none';
+                                    artworkContainer.style.opacity = '1';
+                                }
+                            } else {
+                                imgElement.onload = function () {
+                                    imagesLoaded += 1;
+                                    imgElement.classList.remove('hidden');
+                                    setTimeout(() => {
+                                        artworkElement.style.opacity = '1';
+                                        artworkElement.style.transform = 'translateY(0)';
+                                    }, index * 200);
+
+                                    attachImageClickEvent(imgElement);
+
+                                    if (imagesLoaded === totalImages) {
+                                        spinnerContainer.style.display = 'none';
+                                        artworkContainer.style.opacity = '1';
+                                    }
+                                };
+
+                                imgElement.onerror = function () {
+                                    imagesLoaded += 1;
+                                    if (imagesLoaded === totalImages) {
+                                        spinnerContainer.style.display = 'none';
+                                        artworkContainer.style.opacity = '1';
+                                    }
+                                };
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération des artworks:', error);
+                    spinnerContainer.style.display = 'none';
+                    artworkContainer.innerHTML = '<p class="text-center text-2xl text-red-500">Erreur lors de la récupération des artworks.</p>';
+                });
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const sidebar = document.getElementById('sidebar');
+    const toggleSidebarButton = document.getElementById('toggleSidebar');
+    
+    toggleSidebarButton.addEventListener('click', function () {
+        // Si la sidebar est cachée, la faire apparaître
+        if (sidebar.classList.contains('-translate-x-full')) {
+            sidebar.classList.remove('-translate-x-full');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+        }
+    });
+});
+
+
 </script>
-    <script src="{{ asset('/js/artwork.js') }}"></script>
+    
   
 {% endblock %}

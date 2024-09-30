@@ -17,7 +17,7 @@ class HomeController extends AbstractController
     public function index(CategoryRepository $categoryRepository, ArtworkRepository $artworkRepository): Response
     {
         $categories = $categoryRepository->findAll();
-        $artworks = $artworkRepository->findAll();
+        
 
         // Rechercher la catégorie "All" et la mettre en première position
     usort($categories, function ($a, $b) {
@@ -25,8 +25,7 @@ class HomeController extends AbstractController
     });
 
         return $this->render('home/index.html.twig', [
-            'categories' => $categories,
-            'artworks' => $artworks,
+            'categories' => $categories,            
         ]);
     }
 

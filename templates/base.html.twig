@@ -6,6 +6,7 @@
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         <script src="https://kit.fontawesome.com/6b5e9208bd.js" crossorigin="anonymous"></script>
         
+        
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -41,6 +42,38 @@
     opacity: 0;
     transform: scale(0.95);
     transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* Optionnel : Ajouter une transition pour une rotation fluide */
+.chevron-icon {
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Styles pour l'animation du menu déroulant */
+.collapse {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.expand {
+  max-height: 1000px; /* Ajustez cette valeur en fonction de la hauteur maximale de vos sous-catégories */
+  overflow: hidden;
+  transition: max-height 0.5s ease-in;
+}
+
+/* Styles pour l'animation de la description du portfolio */
+#portfolio-description {
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+#portfolio-description.hidden {
+    opacity: 0;
 }
 
 
